@@ -8,3 +8,8 @@
 		margin: 0 !important;
 	}
 }
+
+body {
+	font-family: Sohne, Menlo, Monaco, Consolas, Liberation Mono, Courier New,
+		monospace;
+}
