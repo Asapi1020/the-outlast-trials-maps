@@ -8,6 +8,7 @@ import {
 	brickIcon,
 	containerIcon,
 	hideSpotsIcon,
+	objectiveIcon,
 } from "@this/domain/mansion";
 import { CRS, type Map as LeafletMap, icon } from "leaflet";
 
@@ -51,7 +52,7 @@ const onMapReady = (map: LeafletMap) => {
     <l-marker v-for="(item, index) in Mansion.bricks[floor]" :key="index" :lat-lng="latLang(item.x, item.y)" :icon="brickIcon">
       <l-popup>Brick</l-popup>
     </l-marker>
-    <l-marker v-for="(item, index) in Mansion.objectives[floor]" :key="index" :lat-lng="latLang(item.x, item.y)">
+    <l-marker v-for="(item, index) in Mansion.objectives[floor]" :key="index" :lat-lng="latLang(item.x, item.y)" :icon="objectiveIcon(item.name)">
       <l-popup>{{ item.name }}</l-popup>
     </l-marker>
   </l-map>

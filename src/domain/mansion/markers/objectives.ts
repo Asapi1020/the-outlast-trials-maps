@@ -1,3 +1,5 @@
+import { icon } from "leaflet";
+
 export const objectives = [
 	[],
 	[
@@ -25,3 +27,35 @@ export const objectives = [
 		{ x: 189, y: -201, name: "Fuel" },
 	],
 ];
+
+export const objectiveIcon = (name: string) => {
+	return icon({
+		iconUrl: objectiveSVG(name),
+		iconSize: [32, 32],
+		iconAnchor: [16, 16],
+		popupAnchor: [0, -16],
+	});
+};
+
+const objectiveSVG = (name: string) => {
+	switch (name) {
+		case "Radio": {
+			return "/marker/singleWave.svg";
+		}
+		case "Film": {
+			return "/marker/movieRole.svg";
+		}
+		case "Fuel": {
+			return "/marker/fuel.svg";
+		}
+		case "Private Records":
+		case "Public Records":
+		case "Private Records Case":
+		case "Public Records Case": {
+			return "/marker/archive.svg";
+		}
+		default: {
+			return "/marker/intel.svg";
+		}
+	}
+};
