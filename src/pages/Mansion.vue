@@ -3,22 +3,21 @@ import { LMap, LMarker, LPopup, LTileLayer } from "@vue-leaflet/vue-leaflet";
 import { ref } from "vue";
 import "leaflet/dist/leaflet.css";
 import { Mansion } from "@this/domain";
+import {
+	bottleIcon,
+	brickIcon,
+	containerIcon,
+	hideSpotsIcon,
+} from "@this/domain/mansion";
 import { CRS, type Map as LeafletMap, icon } from "leaflet";
 
 const zoom = ref<number>(2);
 const cursorPosition = ref({ x: 0, y: 0 });
-const floor = ref<number>(0);
+const floor = ref<number>(1);
 
 const latLang = (x: number, y: number) => {
 	return [y, x];
 };
-
-const itemIcon = icon({
-	iconUrl: "/marker/hideSpot.png",
-	iconSize: [32, 32],
-	iconAnchor: [16, 16],
-	popupAnchor: [0, -16],
-});
 
 const onMapReady = (map: LeafletMap) => {
 	map.on("mousemove", (e) => {
@@ -40,7 +39,19 @@ const onMapReady = (map: LeafletMap) => {
   <l-map :zoom="zoom" :center="[-128,128]" :use-global-leaflet="false" style="height: 90vh; width: 100vw;" :crs="CRS.Simple" class="map" @ready="onMapReady">
     <l-tile-layer :url="Mansion.tileUrls[floor]" :max-zoom="3" :no-wrap="true" :tile-size="256"/>
 
-    <l-marker v-for="(item, index) in Mansion.hideSpots[floor]" :key="index" :lat-lng="latLang(item.x, item.y)" :icon="itemIcon">
+    <l-marker v-for="(item, index) in Mansion.hideSpots[floor]" :key="index" :lat-lng="latLang(item.x, item.y)" :icon="hideSpotsIcon">
+      <l-popup>{{ `Hide Spot (${item.name})` }}</l-popup>
+    </l-marker>
+    <l-marker v-for="(item, index) in Mansion.containers[floor]" :key="index" :lat-lng="latLang(item.x, item.y)" :icon="containerIcon">
+      <l-popup>{{ `Container (${item.name})` }}</l-popup>
+    </l-marker>
+    <l-marker v-for="(item, index) in Mansion.bottles[floor]" :key="index" :lat-lng="latLang(item.x, item.y)" :icon="bottleIcon">
+      <l-popup>Bottle</l-popup>
+    </l-marker>
+    <l-marker v-for="(item, index) in Mansion.bricks[floor]" :key="index" :lat-lng="latLang(item.x, item.y)" :icon="brickIcon">
+      <l-popup>Brick</l-popup>
+    </l-marker>
+    <l-marker v-for="(item, index) in Mansion.objectives[floor]" :key="index" :lat-lng="latLang(item.x, item.y)">
       <l-popup>{{ item.name }}</l-popup>
     </l-marker>
   </l-map>
