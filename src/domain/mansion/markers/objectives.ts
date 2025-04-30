@@ -30,32 +30,27 @@ export const objectives = [
 
 export const objectiveIcon = (name: string) => {
 	return icon({
-		iconUrl: objectiveSVG(name),
+		iconUrl: objectiveImage(name),
 		iconSize: [32, 32],
 		iconAnchor: [16, 16],
 		popupAnchor: [0, -16],
 	});
 };
 
-const objectiveSVG = (name: string) => {
+const objectiveImage = (name: string) => {
 	switch (name) {
-		case "Radio": {
-			return "/marker/singleWave.svg";
-		}
 		case "Film": {
-			return "/marker/movieRole.svg";
+			return "/marker/film.png";
 		}
 		case "Fuel": {
-			return "/marker/fuel.svg";
+			return "/marker/fuel.png";
 		}
 		case "Private Records":
-		case "Public Records":
-		case "Private Records Case":
-		case "Public Records Case": {
-			return "/marker/archive.svg";
+		case "Public Records": {
+			return "/marker/box.png";
 		}
 		default: {
-			return "/marker/intel.svg";
+			return "/marker/intel.png";
 		}
 	}
 };

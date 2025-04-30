@@ -1,5 +1,11 @@
 <script setup lang="ts">
-import { LMap, LMarker, LPopup, LTileLayer } from "@vue-leaflet/vue-leaflet";
+import {
+	LMap,
+	LMarker,
+	LPopup,
+	LRectangle,
+	LTileLayer,
+} from "@vue-leaflet/vue-leaflet";
 import { ref } from "vue";
 import "leaflet/dist/leaflet.css";
 import { Mansion } from "@this/domain";
@@ -10,11 +16,11 @@ import {
 	hideSpotsIcon,
 	objectiveIcon,
 } from "@this/domain/mansion";
-import { CRS, type Map as LeafletMap, icon } from "leaflet";
+import { CRS, type Map as LeafletMap } from "leaflet";
 
 const zoom = ref<number>(2);
 const cursorPosition = ref({ x: 0, y: 0 });
-const floor = ref<number>(1);
+const floor = ref<number>(2);
 
 const latLang = (x: number, y: number) => {
 	return [y, x];
@@ -55,6 +61,16 @@ const onMapReady = (map: LeafletMap) => {
     <l-marker v-for="(item, index) in Mansion.objectives[floor]" :key="index" :lat-lng="latLang(item.x, item.y)" :icon="objectiveIcon(item.name)">
       <l-popup>{{ item.name }}</l-popup>
     </l-marker>
+
+    <l-rectangle v-for="(item, index) in Mansion.rectangles[floor]" :key="index"
+      :bounds="[[item.y, item.x], [item.y-item.height, item.x+item.width]]"
+      :color="item.color"
+      :fillColor="item.color"
+      :fillOpacity="1"
+      :weight="2"
+    >
+      <l-popup>{{ item.name }}</l-popup>
+    </l-rectangle>
   </l-map>
 </template>
 
