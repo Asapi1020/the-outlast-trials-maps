@@ -20,7 +20,7 @@ import { CRS, type Map as LeafletMap } from "leaflet";
 
 const zoom = ref<number>(2);
 const cursorPosition = ref({ x: 0, y: 0 });
-const floor = ref<number>(2);
+const floor = ref<number>(1);
 
 const latLang = (x: number, y: number) => {
 	return [y, x];
@@ -69,7 +69,7 @@ const onMapReady = (map: LeafletMap) => {
       :fillOpacity="1"
       :weight="2"
     >
-      <l-popup>{{ item.name }}</l-popup>
+      <l-popup v-if="item.name">{{ item.name }}</l-popup>
     </l-rectangle>
   </l-map>
 </template>
