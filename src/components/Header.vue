@@ -11,6 +11,7 @@
       <v-tab to="/">
 			<v-icon icon="mdi-home-circle" size="28" />
       </v-tab>
+	  <v-tab to="/police-station">Police Station</v-tab>
 	  <v-tab to="/mansion">Mansion</v-tab>
     </v-tabs>
 	</v-app-bar>
