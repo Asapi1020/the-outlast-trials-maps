@@ -1,19 +1,25 @@
 <script setup lang="ts">
 import { PoliceStation } from "@this/domain";
 import { LMap, LTileLayer } from "@vue-leaflet/vue-leaflet";
-import { CRS, type Map as LeafletMap } from "leaflet";
-import { ref } from "vue";
+import { CRS, type Map as LeafletMap, type LeafletMouseEvent } from "leaflet";
+import { onBeforeUnmount, ref } from "vue";
 
 const zoom = ref<number>(2);
 const cursorPosition = ref({ x: 0, y: 0 });
 const floor = ref<number>(1);
 
 const onMapReady = (map: LeafletMap) => {
-	map.on("mousemove", (e) => {
+	const handleMouseMove = (e: LeafletMouseEvent) => {
 		cursorPosition.value = {
 			x: e.latlng.lng,
 			y: e.latlng.lat,
 		};
+	};
+
+	map.on("mousemove", handleMouseMove);
+
+	onBeforeUnmount(() => {
+		map.off("mousemove", handleMouseMove);
 	});
 };
 </script>

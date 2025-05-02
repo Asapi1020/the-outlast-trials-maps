@@ -6,7 +6,7 @@ import {
 	LRectangle,
 	LTileLayer,
 } from "@vue-leaflet/vue-leaflet";
-import { ref } from "vue";
+import { onBeforeUnmount, ref } from "vue";
 import "leaflet/dist/leaflet.css";
 import { Mansion, computeRectangleBounds } from "@this/domain";
 import {
@@ -16,7 +16,7 @@ import {
 	hideSpotsIcon,
 	objectiveIcon,
 } from "@this/domain/mansion";
-import { CRS, type Map as LeafletMap } from "leaflet";
+import { CRS, type Map as LeafletMap, type LeafletMouseEvent } from "leaflet";
 
 const zoom = ref<number>(2);
 const cursorPosition = ref({ x: 0, y: 0 });
@@ -27,11 +27,17 @@ const latLang = (x: number, y: number) => {
 };
 
 const onMapReady = (map: LeafletMap) => {
-	map.on("mousemove", (e) => {
+	const handleMouseMove = (e: LeafletMouseEvent) => {
 		cursorPosition.value = {
 			x: e.latlng.lng,
 			y: e.latlng.lat,
 		};
+	};
+
+	map.on("mousemove", handleMouseMove);
+
+	onBeforeUnmount(() => {
+		map.off("mousemove", handleMouseMove);
 	});
 };
 </script>
