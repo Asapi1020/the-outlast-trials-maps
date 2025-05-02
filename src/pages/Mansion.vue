@@ -8,7 +8,7 @@ import {
 } from "@vue-leaflet/vue-leaflet";
 import { ref } from "vue";
 import "leaflet/dist/leaflet.css";
-import { Mansion } from "@this/domain";
+import { Mansion, computeRectangleBounds } from "@this/domain";
 import {
 	bottleIcon,
 	brickIcon,
@@ -63,7 +63,7 @@ const onMapReady = (map: LeafletMap) => {
     </l-marker>
 
     <l-rectangle v-for="(item, index) in Mansion.rectangles[floor]" :key="index"
-      :bounds="[[item.y, item.x], [item.y-item.height, item.x+item.width]]"
+      :bounds="computeRectangleBounds(item)"
       :color="item.color"
       :fillColor="item.color"
       :fillOpacity="1"

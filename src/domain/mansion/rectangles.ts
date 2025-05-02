@@ -1,4 +1,6 @@
-export const rectangles = [
+import type { Rectangle } from "../rectangle";
+
+export const rectangles: Rectangle[][] = [
 	[],
 	[
 		{
