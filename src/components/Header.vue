@@ -84,7 +84,7 @@ const isCurrentPath = (path: string): boolean => {
 			<v-list-item title="Liquidate the Union" to="/the-suburbs?trial=liquidate-the-union"/>
 		</v-list>
 		<v-list v-if="isCurrentPath('/mansion')">
-			<v-list-item title="Farewell" to="/the-suburbs?trial=farewell"/>
+			<v-list-item title="Farewell" to="/mansion?trial=farewell"/>
 		</v-list>
 	</v-navigation-drawer>
 </template>
